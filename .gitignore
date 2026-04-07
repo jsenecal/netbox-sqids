@@ -24,7 +24,7 @@ MANIFEST
 # Virtual Environment
 venv/
 ENV/
-env/
+/env/
 .venv
 
 # IDE
