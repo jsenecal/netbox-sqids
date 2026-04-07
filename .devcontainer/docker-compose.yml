@@ -22,8 +22,6 @@ services:
       - ./home/.claude.json:/home/ubuntu/.claude.json
       - ./configuration:/etc/netbox/config:z,ro
       - netbox-scripts:/etc/netbox/scripts
-    ports:
-      - "8088:8088"
     command:
       - sleep
       - infinity
