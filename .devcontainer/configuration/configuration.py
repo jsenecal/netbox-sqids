@@ -141,8 +141,10 @@ NAPALM_ARGS = {}
 
 PAGINATE_COUNT = int(environ.get("PAGINATE_COUNT", 50))
 
-PLUGINS = []
-PLUGINS_CONFIG = {}
+PLUGINS = ["netbox_sqids"]
+PLUGINS_CONFIG = {
+    "netbox_sqids": {},
+}
 
 PREFER_IPV4 = environ.get("PREFER_IPV4", "False").lower() == "true"
 

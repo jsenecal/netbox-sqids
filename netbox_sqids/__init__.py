@@ -44,7 +44,6 @@ class NetBoxSqidsConfig(PluginConfig):
             return
 
         try:
-            import netbox.api.urls
             import netbox.urls
             from django.urls import path
 
@@ -54,8 +53,8 @@ class NetBoxSqidsConfig(PluginConfig):
             netbox.urls.urlpatterns.append(
                 path(f'{prefix}/<str:sqid>/', SqidRedirectView.as_view(), name='sqid_short_redirect')
             )
-            netbox.api.urls.urlpatterns.append(
-                path(f'{prefix}/<str:sqid>/', SqidApiRedirectView.as_view(), name='sqid_short_api_redirect')
+            netbox.urls.urlpatterns.append(
+                path(f'api/{prefix}/<str:sqid>/', SqidApiRedirectView.as_view(), name='sqid_short_api_redirect')
             )
         except Exception:
             logger.warning("Failed to monkey-patch short SQID URLs. "

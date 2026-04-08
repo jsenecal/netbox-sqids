@@ -64,13 +64,13 @@ format-check: ## Check formatting without modifying files
 # --- Testing ---
 
 test: ## Run test suite
-	$(PYTHON) -m pytest
+	PYTHONPATH=/opt/netbox/netbox $(PYTHON) -m pytest
 
 test-v: ## Run test suite with verbose output
-	$(PYTHON) -m pytest -v
+	PYTHONPATH=/opt/netbox/netbox $(PYTHON) -m pytest -v
 
 test-cov: ## Run tests with coverage report
-	$(PYTHON) -m pytest --cov=netbox_sqids --cov-report=term-missing --cov-report=html
+	PYTHONPATH=/opt/netbox/netbox $(PYTHON) -m pytest --cov=netbox_sqids --cov-report=term-missing --cov-report=html
 
 # --- Install / setup ---
 
