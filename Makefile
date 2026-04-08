@@ -1,6 +1,11 @@
 MANAGE = /opt/netbox/netbox/manage.py
 PYTHON = /opt/netbox/venv/bin/python
 
+# Guard: all targets require the devcontainer environment
+ifeq (,$(wildcard /opt/netbox))
+$(error This Makefile must be run inside the devcontainer (/opt/netbox not found))
+endif
+
 .PHONY: help migrations migrate runserver createsuperuser shell dbshell \
 	collectstatic check lint lint-fix format format-check test test-v test-cov \
 	install install-dev showurls showmigrations clean
