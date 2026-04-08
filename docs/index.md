@@ -2,6 +2,9 @@
 
 **Short, URL-safe, globally unique identifiers for every NetBox object.**
 
+!!! warning "Alpha"
+    This plugin is functional but under active development. The API and SQID encoding may change before 1.0.
+
 NetBox SQIDs is a plugin that adds a computed `sqid` property to every Django model in your NetBox instance. SQIDs encode the content type and primary key into a compact string that can be shared, bookmarked, and resolved back to the original object.
 
 ## Features

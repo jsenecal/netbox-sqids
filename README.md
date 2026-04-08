@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/jsenecal/netbox-sqids/actions/workflows/ci.yml/badge.svg)](https://github.com/jsenecal/netbox-sqids/actions/workflows/ci.yml)
 
+> **Alpha** — this plugin is functional but under active development. The API and SQID encoding may change before 1.0.
+
 Short, URL-safe, globally unique identifiers for every NetBox object.
 
 NetBox SQIDs adds a computed `sqid` property to every model in your NetBox instance. SQIDs encode the content type and primary key into a compact string that can be shared, bookmarked, and resolved back to the original object — no database changes required.
