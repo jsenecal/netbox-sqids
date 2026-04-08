@@ -63,6 +63,7 @@ staticfiles/
 # Documentation
 docs/_build/
 site/
+.cache/
 
 # Package
 *.tar.gz

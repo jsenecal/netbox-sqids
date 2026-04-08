@@ -37,6 +37,7 @@ dev = [
     "pytest-django>=4.5.0",
     "pytest-cov>=3.0.0",
     "ruff",
+    "zensical",
 ]
 
 [project.urls]

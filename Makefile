@@ -8,7 +8,7 @@ endif
 
 .PHONY: help migrations migrate runserver createsuperuser shell dbshell \
 	collectstatic check lint lint-fix format format-check test test-v test-cov \
-	install install-dev showurls showmigrations clean
+	install install-dev showurls showmigrations clean docs docs-serve
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | \
@@ -81,4 +81,12 @@ install-dev: ## Install plugin with dev dependencies
 	uv pip install -e "/opt/netbox-sqids[dev]"
 
 clean: ## Remove build artifacts
-	rm -rf build/ dist/ *.egg-info/ htmlcov/ .coverage .pytest_cache/
+	rm -rf build/ dist/ *.egg-info/ htmlcov/ .coverage .pytest_cache/ site/
+
+# --- Documentation ---
+
+docs: ## Build documentation
+	zensical build
+
+docs-serve: ## Serve documentation locally with live reload
+	zensical serve

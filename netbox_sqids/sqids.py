@@ -1,10 +1,28 @@
+"""SQID encoding, decoding, and descriptor for NetBox models.
+
+This module provides the core SQID logic: a factory for creating Sqids
+encoder instances, a Python descriptor for computed sqid properties,
+and a resolver function for decoding SQIDs back to model instances.
+"""
+
 from django.contrib.contenttypes.models import ContentType
 from sqids import Sqids
 
 ALPHABET = "0123456789ACDEFGHJKLMNPQRSTUVWXYZ"
+"""33-character alphabet excluding B, I, O to avoid visual ambiguity."""
 
 
 def get_sqids_instance(min_length: int = 4, blocklist: list[str] | None = None) -> Sqids:
+    """Create a configured Sqids encoder/decoder instance.
+
+    Args:
+        min_length: Minimum output string length.
+        blocklist: Words to filter from generated SQIDs. None uses the
+            extended default blocklist.
+
+    Returns:
+        A Sqids instance configured with the custom alphabet.
+    """
     if blocklist is None:
         from sqids.constants import DEFAULT_BLOCKLIST
         blocklist = list(DEFAULT_BLOCKLIST) + ["ck", "sex", "butt"]
@@ -15,6 +33,7 @@ _sqids_instance = None
 
 
 def _get_instance() -> Sqids:
+    """Return the module-level Sqids singleton, creating it on first use."""
     global _sqids_instance
     if _sqids_instance is None:
         from django.conf import settings
@@ -28,6 +47,12 @@ def _get_instance() -> Sqids:
 
 
 class SqidDescriptor:
+    """Read-only descriptor that computes a SQID from an object's content type and PK.
+
+    Attached to models via ``add_to_class('sqid', SqidDescriptor())`` in
+    ``PluginConfig.ready()``. Returns None for unsaved objects and non-integer PKs.
+    """
+
     def __get__(self, obj, objtype=None):
         if obj is None:
             return self
