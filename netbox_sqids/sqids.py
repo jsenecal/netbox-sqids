@@ -25,6 +25,7 @@ def get_sqids_instance(min_length: int = 4, blocklist: list[str] | None = None) 
     """
     if blocklist is None:
         from sqids.constants import DEFAULT_BLOCKLIST
+
         blocklist = list(DEFAULT_BLOCKLIST) + ["ck", "sex", "butt"]
     return Sqids(alphabet=ALPHABET, min_length=min_length, blocklist=blocklist)
 
@@ -37,13 +38,13 @@ def _get_instance() -> Sqids:
     global _sqids_instance
     if _sqids_instance is None:
         from django.conf import settings
-        plugin_settings = settings.PLUGINS_CONFIG.get('netbox_sqids', {})
+
+        plugin_settings = settings.PLUGINS_CONFIG.get("netbox_sqids", {})
         _sqids_instance = get_sqids_instance(
-            min_length=plugin_settings.get('min_length', 4),
-            blocklist=plugin_settings.get('blocklist', None),
+            min_length=plugin_settings.get("min_length", 4),
+            blocklist=plugin_settings.get("blocklist", None),
         )
     return _sqids_instance
-
 
 
 class SqidDescriptor:
