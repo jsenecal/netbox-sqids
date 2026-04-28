@@ -26,6 +26,7 @@ class TestSqidRedirectView:
     @patch("netbox_sqids.views.resolve_sqid")
     def test_invalid_sqid_returns_404(self, mock_resolve):
         from django.http import Http404
+
         mock_resolve.side_effect = ValueError("Invalid SQID")
 
         request = self.factory.get("/plugins/sqids/XXXX/")
@@ -36,6 +37,7 @@ class TestSqidRedirectView:
     def test_object_not_found_returns_404(self, mock_resolve):
         from django.core.exceptions import ObjectDoesNotExist
         from django.http import Http404
+
         mock_resolve.side_effect = ObjectDoesNotExist()
 
         request = self.factory.get("/plugins/sqids/ABCD/")
@@ -45,13 +47,13 @@ class TestSqidRedirectView:
     @patch("netbox_sqids.views.resolve_sqid")
     def test_no_get_absolute_url_returns_404(self, mock_resolve):
         from django.http import Http404
+
         mock_obj = MagicMock(spec=[])  # no get_absolute_url
         mock_resolve.return_value = mock_obj
 
         request = self.factory.get("/plugins/sqids/ABCD/")
         with pytest.raises(Http404):
             SqidRedirectView.as_view()(request, sqid="ABCD")
-
 
 
 class TestSqidApiRedirectView:
@@ -73,12 +75,13 @@ class TestSqidApiRedirectView:
 
         assert response.status_code == 302
         assert response.url == "/api/dcim/devices/42/"
-        mock_get_viewname.assert_called_once_with(mock_obj, action='detail', rest_api=True)
+        mock_get_viewname.assert_called_once_with(mock_obj, action="detail", rest_api=True)
         mock_reverse.assert_called_once_with("dcim-api:device-detail", kwargs={"pk": 42})
 
     @patch("netbox_sqids.api.views.resolve_sqid")
     def test_invalid_sqid_returns_404(self, mock_resolve):
         from django.http import Http404
+
         mock_resolve.side_effect = ValueError("Invalid SQID")
 
         request = self.factory.get("/api/plugins/sqids/XXXX/")
@@ -89,6 +92,7 @@ class TestSqidApiRedirectView:
     def test_object_not_found_returns_404(self, mock_resolve):
         from django.core.exceptions import ObjectDoesNotExist
         from django.http import Http404
+
         mock_resolve.side_effect = ObjectDoesNotExist()
 
         request = self.factory.get("/api/plugins/sqids/ABCD/")
@@ -99,6 +103,7 @@ class TestSqidApiRedirectView:
     @patch("netbox_sqids.api.views.resolve_sqid")
     def test_no_api_viewname_returns_404(self, mock_resolve, mock_get_viewname):
         from django.http import Http404
+
         mock_obj = MagicMock()
         mock_resolve.return_value = mock_obj
         mock_get_viewname.side_effect = AttributeError()

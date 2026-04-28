@@ -16,7 +16,7 @@ class SqidRedirectView(View):
         except (ValueError, ObjectDoesNotExist) as exc:
             raise Http404 from exc
 
-        if not hasattr(obj, 'get_absolute_url'):
+        if not hasattr(obj, "get_absolute_url"):
             raise Http404
 
         return HttpResponseRedirect(obj.get_absolute_url())

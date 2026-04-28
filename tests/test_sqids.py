@@ -42,12 +42,14 @@ class TestSqidDescriptor:
     def test_class_access_returns_descriptor(self):
         class FakeModel:
             sqid = SqidDescriptor()
+
         assert isinstance(FakeModel.sqid, SqidDescriptor)
 
     def test_unsaved_object_returns_none(self):
         class FakeModel:
             pk = None
             sqid = SqidDescriptor()
+
         obj = FakeModel()
         assert obj.sqid is None
 
@@ -60,6 +62,7 @@ class TestSqidDescriptor:
         class FakeModel:
             pk = 42
             sqid = SqidDescriptor()
+
         obj = FakeModel()
 
         result = obj.sqid
@@ -76,6 +79,7 @@ class TestSqidDescriptor:
         class FakeModel:
             pk = 1
             sqid = SqidDescriptor()
+
         obj = FakeModel()
         with pytest.raises(AttributeError, match="read-only"):
             obj.sqid = "something"
@@ -84,6 +88,7 @@ class TestSqidDescriptor:
         class FakeModel:
             pk = "uuid-string"
             sqid = SqidDescriptor()
+
         obj = FakeModel()
         assert obj.sqid is None
 

@@ -19,8 +19,8 @@ class SqidApiRedirectView(View):
             raise Http404 from exc
 
         try:
-            viewname = get_viewname(obj, action='detail', rest_api=True)
-            url = reverse(viewname, kwargs={'pk': obj.pk})
+            viewname = get_viewname(obj, action="detail", rest_api=True)
+            url = reverse(viewname, kwargs={"pk": obj.pk})
         except (AttributeError, Exception) as exc:
             raise Http404 from exc
 
