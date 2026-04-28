@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-04-28
+
 ### Added
 
 - Canonical normalize-toolkit: `release-drafter.yml`, `pr-title.yml`, `.github/release-drafter.yml`, `.pre-commit-config.yaml`, `.git-template/hooks/commit-msg`, `uv.lock`, LICENSE file (Apache 2.0).

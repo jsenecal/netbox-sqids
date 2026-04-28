@@ -7,7 +7,7 @@ include = ["netbox_sqids", "netbox_sqids.*"]
 
 [project]
 name = "netbox-sqids"
-version = "0.1.0"
+version = "0.1.1"
 description = "NetBox plugin that adds short, URL-safe, globally unique SQID identifiers to every model"
 readme = "README.md"
 authors = [
@@ -50,7 +50,7 @@ Tracker = "https://github.com/jsenecal/netbox-sqids/issues"
 Documentation = "https://jsenecal.github.io/netbox-sqids/"
 
 [tool.bumpver]
-current_version = "0.1.0"
+current_version = "0.1.1"
 version_pattern = "MAJOR.MINOR.PATCH"
 commit_message = "chore: bump version {old_version} -> {new_version}"
 tag_pattern = "vMAJOR.MINOR.PATCH"
