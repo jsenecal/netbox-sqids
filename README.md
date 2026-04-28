@@ -1,8 +1,15 @@
 # NetBox SQIDs
 
+[![PyPI](https://img.shields.io/pypi/v/netbox-sqids.svg)](https://pypi.org/project/netbox-sqids/)
+[![Python](https://img.shields.io/pypi/pyversions/netbox-sqids.svg)](https://pypi.org/project/netbox-sqids/)
+[![NetBox](https://img.shields.io/badge/NetBox-4.5%2B-success.svg)](https://github.com/netbox-community/netbox)
 [![CI](https://github.com/jsenecal/netbox-sqids/actions/workflows/ci.yml/badge.svg)](https://github.com/jsenecal/netbox-sqids/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/jsenecal/netbox-sqids/branch/main/graph/badge.svg)](https://codecov.io/gh/jsenecal/netbox-sqids)
+[![Documentation](https://img.shields.io/badge/docs-jsenecal.github.io-blue)](https://jsenecal.github.io/netbox-sqids/)
+![Status](https://img.shields.io/badge/status-alpha-orange)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-> **Alpha** — this plugin is functional but under active development. The API and SQID encoding may change before 1.0.
+> **Alpha** -- this plugin is functional but under active development. The API and SQID encoding may change before 1.0.
 
 Short, URL-safe, globally unique identifiers for every NetBox object.
 
