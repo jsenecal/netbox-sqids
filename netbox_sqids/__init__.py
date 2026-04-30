@@ -25,6 +25,7 @@ class NetBoxSqidsConfig(PluginConfig):
         super().ready()
         self._patch_models()
         self._patch_urls()
+        logger.info("%s plugin loaded", self.name)
 
     def _patch_models(self):
         from django.apps import apps
