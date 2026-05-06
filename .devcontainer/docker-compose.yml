@@ -28,7 +28,7 @@ services:
 
   postgres:
     container_name: netbox-sqids-postgres
-    image: postgres:16
+    image: postgres:18
     env_file: env/postgres.env
     volumes:
       - netbox-postgres-data:/var/lib/postgresql/data
