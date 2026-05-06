@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
+### Added
+
+- New zensical pages: `developer/encoding.md`, `user/faq.md`, `user/recipes.md`, `user/troubleshooting.md`. Substantial expansion of existing pages (`developer/architecture.md`, `index.md`, `user/configuration.md`, `user/getting-started.md`, `user/using-sqids.md`).
+- Documentation badge in the README badge row, linking to the zensical site at `jsenecal.github.io/netbox-sqids/`.
+
+### Changed
+
+- Release tooling: migrated from `bumpver` to `bump-my-version` (the maintained `bump2version` fork). The new tool honors `tag_name = "v{new_version}"` (which `bumpver` silently ignored, hardcoding bare-version tags). Release flow becomes `bump-my-version bump <part> && git push --follow-tags` -- `bump-my-version` does not auto-push. Manual `[Unreleased] -> [X.Y.Z]` promotion before each bump remains required (no tool reliably handles date-templated promotion across day boundaries).
+- `docs.yml` workflow: added `workflow_dispatch` trigger and a self-trigger so docs deploys can be re-run on demand.
+- `ci.yml`: skip workflow on PRs/pushes that only touch docs, changelog, license, Renovate/Dependabot config, or sibling workflow files (`docs.yml`, `publish.yml`, `release-drafter.yml`, `pr-title.yml`). Test matrix bumped from NetBox 4.5.7/4.5.8 to 4.5.8/4.5.10; Codecov upload gate aligned to the latest patch.
+
 ## [0.1.1] - 2026-04-28
 
 ### Added
