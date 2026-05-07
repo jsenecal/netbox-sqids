@@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 - New zensical pages: `developer/encoding.md`, `user/faq.md`, `user/recipes.md`, `user/troubleshooting.md`. Substantial expansion of existing pages (`developer/architecture.md`, `index.md`, `user/configuration.md`, `user/getting-started.md`, `user/using-sqids.md`).
 - Documentation badge in the README badge row, linking to the zensical site at `jsenecal.github.io/netbox-sqids/`.
 
+### Fixed
+
+- Short SQID URL patching no longer imports `netbox.urls` during `AppConfig.ready()`. The append is deferred to a one-shot `request_started` handler so it runs after every plugin's `ready()` has finished. Previously, the eager import transitively built `netbox.graphql.schema.Query` with whatever plugin GraphQL schemas were in the registry at that moment, silently dropping schemas registered by plugins loaded after `netbox_sqids`. Forward routing on `/<prefix>/<sqid>/` and `/api/<prefix>/<sqid>/` is unchanged; note that `reverse('sqid_short_redirect')` will not resolve because Django caches the reverse-dict at URLConf populate time. (#15)
+
 ### Changed
 
 - Release tooling: migrated from `bumpver` to `bump-my-version` (the maintained `bump2version` fork). The new tool honors `tag_name = "v{new_version}"` (which `bumpver` silently ignored, hardcoding bare-version tags). Release flow becomes `bump-my-version bump <part> && git push --follow-tags` -- `bump-my-version` does not auto-push. Manual `[Unreleased] -> [X.Y.Z]` promotion before each bump remains required (no tool reliably handles date-templated promotion across day boundaries).
