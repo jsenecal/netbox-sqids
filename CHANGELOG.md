@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-05-07
+
 ### Added
 
 - New zensical pages: `developer/encoding.md`, `user/faq.md`, `user/recipes.md`, `user/troubleshooting.md`. Substantial expansion of existing pages (`developer/architecture.md`, `index.md`, `user/configuration.md`, `user/getting-started.md`, `user/using-sqids.md`).
@@ -48,4 +50,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 - CI workflow with test matrix (Python 3.12/3.13, NetBox 4.5.7)
 - GitHub Pages documentation deployment
 
+[0.1.2]: https://github.com/jsenecal/netbox-sqids/releases/tag/v0.1.2
+[0.1.1]: https://github.com/jsenecal/netbox-sqids/releases/tag/v0.1.1
 [0.1.0]: https://github.com/jsenecal/netbox-sqids/releases/tag/v0.1.0
