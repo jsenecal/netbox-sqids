@@ -3,7 +3,12 @@ from unittest.mock import MagicMock, patch
 import pytest
 from django.core.exceptions import ObjectDoesNotExist
 
-from netbox_sqids.sqids import SqidDescriptor, get_sqids_instance, resolve_sqid
+from netbox_sqids.sqids import (
+    SqidDescriptor,
+    encode_object,
+    get_sqids_instance,
+    resolve_sqid,
+)
 
 ALPHABET = "0123456789ACDEFGHJKLMNPQRSTUVWXYZ"
 
@@ -36,6 +41,58 @@ class TestSqidsInstance:
         instance = get_sqids_instance(min_length=1, blocklist=["sex"])
         encoded = instance.encode([1, 1])
         assert "sex" not in encoded.lower()
+
+    def test_extra_blocklist_skips_value_but_stays_decodable(self):
+        canonical = get_sqids_instance().encode([5, 42])
+        alt = get_sqids_instance(extra_blocklist=[canonical]).encode([5, 42])
+        assert alt != canonical
+        # The equivalent SQID still decodes back to the same numbers.
+        assert get_sqids_instance().decode(alt) == [5, 42]
+
+    def test_extra_blocklist_none_matches_default(self):
+        assert get_sqids_instance(extra_blocklist=None).encode([5, 42]) == get_sqids_instance().encode([5, 42])
+
+
+class TestEncodeObject:
+    def test_unsaved_object_returns_none(self):
+        class FakeModel:
+            pk = None
+
+        assert encode_object(FakeModel()) is None
+
+    def test_non_integer_pk_returns_none(self):
+        class FakeModel:
+            pk = "uuid-string"
+
+        assert encode_object(FakeModel()) is None
+
+    @patch("netbox_sqids.sqids.ContentType")
+    def test_no_extras_roundtrips_to_content_type_and_pk(self, mock_ct_class):
+        mock_ct = MagicMock()
+        mock_ct.pk = 5
+        mock_ct_class.objects.get_for_model.return_value = mock_ct
+
+        class FakeModel:
+            pk = 42
+
+        result = encode_object(FakeModel())
+        assert get_sqids_instance().decode(result) == [5, 42]
+
+    @patch("netbox_sqids.sqids.ContentType")
+    def test_extra_blocklist_yields_equivalent_sqid(self, mock_ct_class):
+        mock_ct = MagicMock()
+        mock_ct.pk = 5
+        mock_ct_class.objects.get_for_model.return_value = mock_ct
+
+        class FakeModel:
+            pk = 42
+
+        obj = FakeModel()
+        canonical = encode_object(obj)
+        alt = encode_object(obj, extra_blocklist=[canonical])
+        assert alt != canonical
+        # Different string, same object.
+        assert get_sqids_instance().decode(alt) == [5, 42]
 
 
 class TestSqidDescriptor:

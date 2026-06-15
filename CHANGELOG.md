@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
+### Added
+
+- `encode_object(obj, extra_blocklist=None)` encodes a model instance's SQID (content type + pk) and can skip blocklisted values, so a caller that hits a collision gets an equivalent SQID that still decodes back to the same object. `get_sqids_instance()` gains a matching `extra_blocklist` parameter that is appended to the resolved blocklist.
+
 ## [0.1.2] - 2026-05-07
 
 ### Added
