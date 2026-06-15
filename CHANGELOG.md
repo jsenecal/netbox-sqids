@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-06-15
+
 ### Added
 
 - `encode_object(obj, extra_blocklist=None)` encodes a model instance's SQID (content type + pk) and can skip blocklisted values, so a caller that hits a collision gets an equivalent SQID that still decodes back to the same object. `get_sqids_instance()` gains a matching `extra_blocklist` parameter that is appended to the resolved blocklist.
@@ -54,6 +56,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 - CI workflow with test matrix (Python 3.12/3.13, NetBox 4.5.7)
 - GitHub Pages documentation deployment
 
+[0.2.0]: https://github.com/jsenecal/netbox-sqids/releases/tag/v0.2.0
 [0.1.2]: https://github.com/jsenecal/netbox-sqids/releases/tag/v0.1.2
 [0.1.1]: https://github.com/jsenecal/netbox-sqids/releases/tag/v0.1.1
 [0.1.0]: https://github.com/jsenecal/netbox-sqids/releases/tag/v0.1.0
