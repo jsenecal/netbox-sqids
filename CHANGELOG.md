@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
+### Changed
+
+- CI now tests against the latest NetBox 4.5 and 4.6 releases (4.5.10
+  and 4.6.10, previously 4.5.8 and 4.5.10), with Renovate keeping the
+  matrix pinned to the newest release of each supported minor.
+
 ## [0.2.0] - 2026-06-15
 
 ### Added
