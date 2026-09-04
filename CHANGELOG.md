@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
+### Added
+
+- NetBox 4.7 support: the CI matrix now tests against 4.7.0 alongside
+  4.5.10 and 4.6.10, with Renovate keeping the 4.7 lane pinned to the
+  newest release of that minor. No plugin code changes were required.
+
 ### Changed
 
 - CI now tests against the latest NetBox 4.5 and 4.6 releases (4.5.10
