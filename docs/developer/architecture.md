@@ -54,19 +54,22 @@ netbox_sqids/
 +-- sqids.py             # Sqids instance, SqidDescriptor, resolve_sqid()
 +-- views.py             # SqidRedirectView (browser)
 +-- urls.py              # Browser URL pattern
++-- template_content.py  # SqidButton (detail-page button)
 +-- api/
     +-- __init__.py
     +-- views.py         # SqidApiRedirectView (API)
     +-- urls.py          # API URL pattern
 
 tests/
-+-- test_sqids.py        # Unit tests for core logic
-+-- test_views.py        # View tests
++-- test_sqids.py             # Unit tests for core logic
++-- test_views.py             # View tests
++-- test_patch_urls.py        # Deferred short-route patching
++-- test_template_content.py  # Detail-page button
 
 docs/                    # Zensical documentation
 ```
 
-The full implementation is roughly 130 lines of Python. The simplicity is
+The full implementation is roughly 300 lines of Python. The simplicity is
 the point.
 
 ## Component responsibilities
@@ -95,6 +98,8 @@ The core module. Contains:
   `PLUGINS_CONFIG["netbox_sqids"]` on first call and caches the result.
 - `SqidDescriptor` -- the descriptor attached to every model.
 - `resolve_sqid()` -- the decode + lookup helper.
+- `short_path()` -- builds the redirect path for a SQID, following the
+  `monkeypatched_url_prefix` setting.
 
 ### `netbox_sqids/views.py` and `api/views.py`
 
@@ -116,6 +121,17 @@ or `reverse()` cannot resolve the view name.
 Standard plugin URL configs that wire the views to
 `<sqid>` path parameters. NetBox mounts these under `/plugins/sqids/` and
 `/api/plugins/sqids/` respectively.
+
+### `netbox_sqids/template_content.py`
+
+Defines `SqidButton`, a `PluginTemplateExtension` with no `models`
+restriction, so NetBox calls its `buttons()` method on every object detail
+page. The button is labelled with the object's SQID and carries the
+absolute short link in a `data-clipboard-text` attribute; NetBox's own
+`copy-content` clipboard handler does the copying, so the plugin ships no
+JavaScript. The button row is used because it is the one plugin hook that
+NetBox's base detail template renders for every model -- the panel hooks
+only appear on pages whose layout opts in.
 
 ## Key design decisions
 

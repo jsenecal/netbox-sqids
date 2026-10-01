@@ -1,8 +1,27 @@
 # Using SQIDs
 
 This page covers everything you can do with a SQID once the plugin is
-installed: read it from a model, paste it into a URL, and decode it back to
-the original object.
+installed: find it in the web UI, read it from a model, paste it into a
+URL, and decode it back to the original object.
+
+## Finding the SQID in the web UI
+
+Every object detail page shows the object's SQID on a button in the action
+row, next to the bookmark, edit, and delete buttons. Clicking the button
+copies the object's short link to the clipboard:
+
+```
+https://netbox.example.com/s/WK1J/
+```
+
+If `monkeypatched_url_prefix` is set to `None`, the copied link uses the
+always-available `/plugins/sqids/WK1J/` route instead. Objects that have no
+SQID (see [Non-integer primary keys](#non-integer-primary-keys)) get no
+button.
+
+The button appears on core and plugin models alike. The few pages that
+replace NetBox's standard action row, such as custom scripts, do not show
+it.
 
 ## Accessing the SQID property
 
