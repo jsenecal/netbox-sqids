@@ -69,6 +69,38 @@ from netbox_sqids.sqids import resolve_sqid
 device = resolve_sqid("WK1J")
 ```
 
+---
+
+#### `short_path()`
+
+```python
+def short_path(sqid: str) -> str
+```
+
+Return the site-relative path that redirects to the object behind a SQID.
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `sqid` | `str` | The SQID to build a link for |
+
+**Returns:** `/<prefix>/<sqid>/` when `monkeypatched_url_prefix` is set,
+otherwise the always-available `/plugins/sqids/<sqid>/` route.
+
+The short routes are registered at the root of the URL config, outside
+NetBox's `BASE_PATH`, and the returned path reflects that. The function
+does not check that the SQID resolves. Pass the result to
+`request.build_absolute_uri()` for a full URL.
+
+**Example:**
+
+```python
+from netbox_sqids.sqids import short_path
+
+short_path(device.sqid)   # '/s/WK1J/'
+```
+
 ### Classes
 
 #### `SqidDescriptor`

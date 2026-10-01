@@ -8,6 +8,7 @@ from netbox_sqids.sqids import (
     encode_object,
     get_sqids_instance,
     resolve_sqid,
+    short_path,
 )
 
 ALPHABET = "0123456789ACDEFGHJKLMNPQRSTUVWXYZ"
@@ -187,3 +188,21 @@ class TestResolveSqid:
 
         with pytest.raises(ObjectDoesNotExist):
             resolve_sqid(sqid_str)
+
+
+class TestShortPath:
+    @pytest.mark.parametrize(
+        ("prefix", "want"),
+        [
+            ("s", "/s/WK1J/"),
+            ("go", "/go/WK1J/"),
+            (None, "/plugins/sqids/WK1J/"),
+        ],
+    )
+    def test_follows_configured_prefix(self, settings, prefix, want):
+        settings.PLUGINS_CONFIG = {
+            **settings.PLUGINS_CONFIG,
+            "netbox_sqids": {"monkeypatched_url_prefix": prefix},
+        }
+
+        assert short_path("WK1J") == want

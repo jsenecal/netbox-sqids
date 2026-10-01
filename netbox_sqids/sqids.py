@@ -2,10 +2,13 @@
 
 This module provides the core SQID logic: a factory for creating Sqids
 encoder instances, a Python descriptor for computed sqid properties,
-and a resolver function for decoding SQIDs back to model instances.
+a resolver function for decoding SQIDs back to model instances, and a
+helper for building the redirect path of a SQID.
 """
 
 from django.contrib.contenttypes.models import ContentType
+from django.urls import reverse
+from netbox.plugins.utils import get_plugin_config
 from sqids import Sqids
 
 ALPHABET = "0123456789ACDEFGHJKLMNPQRSTUVWXYZ"
@@ -124,3 +127,18 @@ def resolve_sqid(sqid_str: str):
     ct_id, obj_id = ids
     ct = ContentType.objects.get_for_id(ct_id)
     return ct.get_object_for_this_type(pk=obj_id)
+
+
+def short_path(sqid: str) -> str:
+    """Return the site-relative path that redirects to ``sqid``'s object.
+
+    Uses the short ``/<prefix>/<sqid>/`` route when
+    ``monkeypatched_url_prefix`` is set, and the always-available plugin
+    route otherwise. Does not check that ``sqid`` resolves.
+    """
+    prefix = get_plugin_config("netbox_sqids", "monkeypatched_url_prefix")
+    if prefix is None:
+        return reverse("plugins:netbox_sqids:sqid_redirect", args=[sqid])
+    # The short routes are appended to the root URLconf after Django has
+    # built its reverse lookup table, so they cannot be reversed.
+    return f"/{prefix}/{sqid}/"

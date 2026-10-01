@@ -98,6 +98,8 @@ The core module. Contains:
   `PLUGINS_CONFIG["netbox_sqids"]` on first call and caches the result.
 - `SqidDescriptor` -- the descriptor attached to every model.
 - `resolve_sqid()` -- the decode + lookup helper.
+- `short_path()` -- builds the redirect path for a SQID, following the
+  `monkeypatched_url_prefix` setting.
 
 ### `netbox_sqids/views.py` and `api/views.py`
 

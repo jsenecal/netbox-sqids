@@ -1,8 +1,9 @@
 """Template extension that shows an object's SQID on its detail page."""
 
-from django.urls import reverse
 from django.utils.html import format_html
 from netbox.plugins import PluginTemplateExtension
+
+from netbox_sqids.sqids import short_path
 
 
 class SqidButton(PluginTemplateExtension):
@@ -17,18 +18,10 @@ class SqidButton(PluginTemplateExtension):
         if sqid is None:
             return ""
 
-        prefix = self.context["config"]["monkeypatched_url_prefix"]
-        if prefix is None:
-            path = reverse("plugins:netbox_sqids:sqid_redirect", args=[sqid])
-        else:
-            # The short routes are appended to the root URLconf after Django
-            # has built its reverse lookup table, so they cannot be reversed.
-            path = f"/{prefix}/{sqid}/"
-
         return format_html(
             '<a class="btn btn-outline-secondary copy-content" data-clipboard-text="{}" title="Copy short link">'
             '<i class="mdi mdi-link-variant" aria-hidden="true"></i> {}</a>',
-            self.context["request"].build_absolute_uri(path),
+            self.context["request"].build_absolute_uri(short_path(sqid)),
             sqid,
         )
 

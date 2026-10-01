@@ -5,17 +5,14 @@ Practical, copy-pasteable patterns for common NetBox SQIDs use cases.
 ## Build a short shareable URL for any object
 
 ```python
-from django.conf import settings
+from netbox_sqids.sqids import short_path
 
-def shareable_url(obj):
-    base = getattr(settings, "BASE_PATH", "")
-    prefix = settings.PLUGINS_CONFIG.get("netbox_sqids", {}).get(
-        "monkeypatched_url_prefix", "s"
-    )
-    if prefix:
-        return f"/{base}{prefix}/{obj.sqid}/"
-    return f"/{base}plugins/sqids/{obj.sqid}/"
+path = short_path(obj.sqid)               # '/s/WK1J/'
+url = request.build_absolute_uri(path)    # 'https://netbox.example.com/s/WK1J/'
 ```
+
+`short_path()` follows the `monkeypatched_url_prefix` setting and falls back
+to `/plugins/sqids/<sqid>/` when the short prefix is disabled.
 
 In a template:
 

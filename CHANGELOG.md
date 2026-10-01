@@ -13,6 +13,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
   (`/<prefix>/<sqid>/`, or `/plugins/sqids/<sqid>/` when
   `monkeypatched_url_prefix` is `None`) to the clipboard. Objects without
   a SQID (non-integer primary keys) get no button.
+- `short_path(sqid)` returns the redirect path for a SQID: `/<prefix>/<sqid>/`,
+  or `/plugins/sqids/<sqid>/` when `monkeypatched_url_prefix` is `None`. It
+  replaces the hand-written `shareable_url()` recipe in the docs, which
+  produced a path matching no route on installs with a non-empty
+  `BASE_PATH`.
 - NetBox 4.7 support: the CI matrix now tests against 4.7.0 alongside
   4.5.10 and 4.6.10, with Renovate keeping the 4.7 lane pinned to the
   newest release of that minor. No plugin code changes were required.
