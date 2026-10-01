@@ -71,6 +71,8 @@ In the API, `/api/s/WK1J/` redirects to the REST detail endpoint.
   API.
 - **Short URLs.** Optional monkey-patched routes like `/s/WK1J/` at the
   root level.
+- **Visible in the UI.** Every object detail page shows its SQID on a
+  button that copies the short link.
 
 ## Where to next
 

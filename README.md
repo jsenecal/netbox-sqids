@@ -37,6 +37,7 @@ Visit `/s/WK1J/` in your browser to be redirected to the device's detail page.
 - **URL-safe** — curated 33-character alphabet, no ambiguous characters
 - **Redirect views** — resolve any SQID via browser or API
 - **Short URLs** — optional root-level routes like `/s/WK1J/`
+- **Visible in the UI** -- every object detail page shows its SQID on a button that copies the short link
 
 ## Requirements
 

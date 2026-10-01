@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ### Added
 
+- Every object detail page now shows the object's SQID as a button in the
+  action row. Clicking it copies the object's short link
+  (`/<prefix>/<sqid>/`, or `/plugins/sqids/<sqid>/` when
+  `monkeypatched_url_prefix` is `None`) to the clipboard. Objects without
+  a SQID (non-integer primary keys) get no button.
 - NetBox 4.7 support: the CI matrix now tests against 4.7.0 alongside
   4.5.10 and 4.6.10, with Renovate keeping the 4.7 lane pinned to the
   newest release of that minor. No plugin code changes were required.
