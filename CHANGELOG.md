@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-01
+
 ### Added
 
 - Every object detail page now shows the object's SQID as a button in the
@@ -78,6 +80,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 - CI workflow with test matrix (Python 3.12/3.13, NetBox 4.5.7)
 - GitHub Pages documentation deployment
 
+[0.3.0]: https://github.com/jsenecal/netbox-sqids/releases/tag/v0.3.0
 [0.2.0]: https://github.com/jsenecal/netbox-sqids/releases/tag/v0.2.0
 [0.1.2]: https://github.com/jsenecal/netbox-sqids/releases/tag/v0.1.2
 [0.1.1]: https://github.com/jsenecal/netbox-sqids/releases/tag/v0.1.1
